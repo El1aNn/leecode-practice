@@ -17,7 +17,6 @@ class Solution:
                     return [d[nums[i]], i]
         for i in range(len(nums)):
             if target - nums[i] in d and (target - nums[i]) != nums[i]:
-
                 return [i, d[target - nums[i]]]
 
 
