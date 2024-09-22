@@ -27,4 +27,4 @@ class Solution:
         return backtrack(0)
 
 s = Solution()
-print(s.canPartitionKSubsets([4,3,2,3,5,2,1], 4))
+print(s.canPartitionKSubsets([80,5,35,60,12,12,12,3,6,10,20,10], 3))

@@ -15,7 +15,7 @@ class LRUCache:
         self.dummy = Node()
         self.dummy.next = self.dummy
         self.dummy.prev = self.dummy
-        self.key_to_node = {}
+        self.key_to_node = dict()
     
     def get_node(self, key):
         if key not in self.key_to_node:
@@ -23,6 +23,7 @@ class LRUCache:
         node = self.key_to_node[key]
         self.remove_node(node)
         self.put_front(node)
+        return node
         
         
 
@@ -37,8 +38,7 @@ class LRUCache:
         if node:
             node.value = value
             return
-        node = Node(key, value) = self.key_to_node[key]
-        self.put_front(node)
+        self.key_to_node[key] = node = Node(key, value)  # 新书
         self.put_front(node)
         if len(self.key_to_node) > self.capacity:
             back_book = self.dummy.prev
