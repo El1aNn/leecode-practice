@@ -69,16 +69,22 @@ class Solution:
         #     return min(dfs(i - 1, c), dfs(i, c - coins[i]) + 1)
         # ans = dfs(len(coins) - 1, amount)
         # return ans if ans < amount + 1 else -1
-        dp = [[amount+1] * (amount + 1) for _ in range(len(coins)+1)]
-        dp[0][0] = 0
-        for i, x in enumerate(coins):
-            for j in range(amount + 1):
-                if j < x:
-                    dp[i + 1][j] = dp[i][j]
-                else:
-                    dp[i + 1][j] = min(dp[i][j], dp[i + 1][j - x] + 1)
-        ans = dp[len(coins)][amount]
-        return ans if ans < amount + 1 else -1
+        # dp = [[amount+1] * (amount + 1) for _ in range(len(coins)+1)]
+        # dp[0][0] = 0
+        # for i, x in enumerate(coins):
+        #     for j in range(amount + 1):
+        #         if j < x:
+        #             dp[i + 1][j] = dp[i][j]
+        #         else:
+        #             dp[i + 1][j] = min(dp[i][j], dp[i + 1][j - x] + 1)
+        # ans = dp[len(coins)][amount]
+        # return ans if ans < amount + 1 else -1
+        dp = [amount + 1] * (amount + 1)
+        dp[0] = 0
+        for i in range(len(coins)):
+            for j in range(coins[i], amount + 1):
+                dp[j] = min(dp[j], dp[j - coins[i]] + 1)
+        return dp[amount] if dp[amount] < amount + 1 else -1
 
 
 s = Solution()
