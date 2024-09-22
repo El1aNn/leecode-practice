@@ -24,13 +24,20 @@ class Solution:
         #     else:
         #         return dfs(i - 1, l) or dfs(i - 1, l - nums[i])
         # return dfs(len(nums) - 1, target)
-        f = [[False] * (target + 1)for _ in range(len(nums) + 1)]
-        for i, x in enumerate(nums):
-            f[0][0] = True
-            for j in range(target + 1):
-                f[i + 1][j] = f[i][j] or (f[i][j - x] if j >= x else False)
-        return f[-1][-1]
+        # f = [[False] * (target + 1)for _ in range(len(nums) + 1)]
+        # for i, x in enumerate(nums):
+        #     f[0][0] = True
+        #     for j in range(target + 1):
+        #         f[i + 1][j] = f[i][j] or (f[i][j - x] if j >= x else False)
+        # return f[-1][-1]
+
 # 为什么要倒序？ 因为从前往后前面是i + 1 后面是 i，倒序是前面是i 后面是 i + 1，这样就能保证i + 1的状态能用到i的状态
+        dp = [False] * (target + 1)
+        dp[0] = True
+        for num in nums:
+            for i in range(target, num - 1, -1):
+                dp[i] = dp[i - num] or dp[i]
+        return dp[-1]
 
 
 s = Solution()
