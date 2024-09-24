@@ -7,16 +7,15 @@ class Solution:
         answer = [0] * len(temperatures)
         stack = []
         n = len(temperatures)
-        stack.append((temperatures[-1], n - 1))
+        # stack.append((temperatures[-1], n - 1))
         for i in range(len(temperatures)-1, -1, -1):
-            while stack and temperatures[i] > stack[-1][0]:
+            while stack and temperatures[i] >= stack[-1][0]:
                 stack.pop()
             answer[i] = stack[-1][1] - i if stack else 0
-            if not stack:
-                stack.append((temperatures[i], i))
+            stack.append((temperatures[i], i))
 
         return answer
 
 
 s = Solution()
-print(s.dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73]))
+print(s.dailyTemperatures([89, 62, 70, 58, 47, 47, 46, 76, 100, 70]))
