@@ -5,28 +5,39 @@ from collections import defaultdict
 
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
+        # if len(s) == 0:
+        #     return 0
+        # if len(s) == 1:
+        #     return 1
+        # ans = 1
+        # i = 0
+        # d = {s[0]: 1}
+        # j = 1
+        # while j < len(s) and s[j] not in d:
+        #     d[s[j]] = 1
+        #     j += 1
+        # ans = max(ans, j - i)
+        # while i < j and j < len(s):
+        #     while j < len(s) and s[j] in d:
+        #         del d[s[i]]
+        #         i += 1
+        #     while j < len(s) and s[j] not in d:
+        #         d[s[j]] = 1
+        #         j += 1
+        #     ans = max(ans, j - i)
+        # return ans
         if len(s) == 0:
             return 0
-        if len(s) == 1:
-            return 1
-        ans = 1
         i = 0
-        d = {s[0]: 1}
-        j = 1
-        while j < len(s) and s[j] not in d:
-            d[s[j]] = 1
-            j += 1
-        ans = max(ans, j - i)
-        while i < j and j < len(s):
-            while j < len(s) and s[j] in d:
-                del d[s[i]]
-                i += 1
-            while j < len(s) and s[j] not in d:
-                d[s[j]] = 1
-                j += 1
+        d = defaultdict(int)
+        ans = 0
+        n = len(s)
+        for j in range(n):
+            if s[j] in d:
+                i = max(d[s[j]], i)
+            d[s[j]] = j
             ans = max(ans, j - i)
         return ans
 
-
-s = Solution()
-print(s.lengthOfLongestSubstring("au"))
+# s = Solution()
+# print(s.lengthOfLongestSubstring("au"))
