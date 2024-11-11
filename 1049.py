@@ -27,12 +27,30 @@ class Solution:
         # target = total_weight // 2
         # x = dp(target)
         # return total_weight - 2 * x
+        # total = sum(stones)
+        # target = total // 2
+        # dp = [0] * (target + 1)
+        # for stone in stones:
+        #     for i in range(target, stone - 1, -1):
+        #         dp[i] = max(dp[i], dp[i - stone] + stone)
+        # return total - 2 * dp[-1]
+
         total = sum(stones)
         target = total // 2
-        dp = [0] * (target + 1)
+
+        # @cache
+        # def dfs(i, left):
+        #     if i < 0:
+        #         return 0
+        #     if left < stones[i]:
+        #         return dfs(i - 1, left)
+        #     return max(dfs(i - 1, left - stones[i]), dfs(i - 1, left))
+
+        # return total - 2 * dfs(len(stones) - 1, target)
+        dp = [0 for i in range(target + 1)]
         for stone in stones:
             for i in range(target, stone - 1, -1):
-                dp[i] = max(dp[i], dp[i - stone] + stone)
+                dp[i] = max(dp[i], dp[i - stone])
         return total - 2 * dp[-1]
 
 

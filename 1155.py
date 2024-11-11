@@ -6,18 +6,41 @@
 
 class Solution:
     def numRollsToTarget(self, n: int, k: int, target: int) -> int:
-        # 先剪枝
-        if not (n <= target <= n * k):
-            return 0
-        mod = 10 ** 9 + 7
-        dp = [[0 for _ in range(target + 1)] for _ in range(n + 1)]
-        dp[0][0] = 1
-        for i in range(1, n + 1):
-            for j in range(1, target + 1):
-                for f in range(1, k + 1):
+        # # 先剪枝
+        # if not (n <= target <= n * k):
+        #     return 0
+        # mod = 10 ** 9 + 7
+        # dp = [[0 for _ in range(target + 1)] for _ in range(n + 1)]
+        # dp[0][0] = 1
+        # for i in range(1, n + 1):
+        #     for j in range(1, target + 1):
+        #         for f in range(1, k + 1):
+        #             if j - f >= 0:
+        #                 dp[i][j] += dp[i - 1][j - f]
+        # return dp[-1][-1] % mod
+        MOD = 10 ** 9 + 7
+
+        # def dfs(i, left):
+        #     if left < 0:
+        #         return 0
+        #     if i == 0:
+        #         return 1 if left == 0 else 0
+        #     res = 0
+        #     for j in range(1, k + 1):
+        #         res += dfs(i - 1, left - j)
+        #     return res % MOD
+
+        # return dfs(n, target)
+        dp = [0] * (target + 1)
+        dp[0] = 1
+        for _ in range(1, n+1):
+            for j in range(target, -1, -1):
+                dp[j] = 0
+                for f in range(1, k+1):
                     if j - f >= 0:
-                        dp[i][j] += dp[i - 1][j - f]
-        return dp[-1][-1] % mod
+                        dp[j] += dp[j - f]
+                        dp[j] %= MOD
+        return dp[-1]
 
 
 s = Solution()

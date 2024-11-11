@@ -31,14 +31,16 @@ class Solution:
         #     ans = max(ans, dfs(i))
         # return ans
 
-        def dfs(i):
-            if i < 0:
-                return 0
-            maxj = 0
-            for j in range(i):
-                if nums[j] < nums[i]:
-                    maxj = max(maxj, dfs(j))
-            return maxj + 1
+        # def dfs(i):
+        #     if i < 0:
+        #         return 0
+        #     maxj = 0
+        #     for j in range(i):
+        #         if nums[j] < nums[i]:
+        #             maxj = max(maxj, dfs(j))
+        #     return maxj + 1
+        x = bisect_left = lambda a, x: a if x < a[0] else a[bisect_left(
+            a[1:], x) + 1:]
 
 
 s = Solution()
