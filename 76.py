@@ -3,11 +3,45 @@ from cmath import inf
 from collections import Counter, defaultdict
 
 
+# class Solution:
+#     def minWindow(self, s: str, t: str) -> str:
+#         if len(s) < len(t):
+#             return ''
+
+#         s_cn = Counter()
+#         t_cn = Counter(t)
+#         n = len(s)
+#         left_ans = 0
+#         right_ans = n
+#         left = 0
+
+#         for right, c in enumerate(s):
+#             s_cn[c] += 1
+#             while s_cn >= t_cn:
+#                 if right - left < right_ans - left_ans:
+#                     left_ans, right_ans = left, right
+#                 s_cn[s[left]] -= 1
+#                 left += 1
+#         return s[left_ans:right_ans + 1] if right_ans < n else ''
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        if len(s) < len(t):
-            return ''
-
+        n = len(s)
+        left = 0
+        d = defaultdict(int)
+        ans = n + 1
+        for x in t:
+            d[x] += 1
+        for right, x in enumerate(s):
+            if x in d:
+                d[x] -= 1
+            while d[x] < 0:
+                left += 1
+                if s[left] == x:
+                    d[x] += 1
+            ans = min(ans, right - left + 1) 
+        return ans 
+s = Solution()
+print(s.minWindow("ADOBECODEBANC", "ABC"))
         # for c in t:
         #     dict[c] += 1
 #         left, right = 0, 0
@@ -42,30 +76,30 @@ class Solution:
 # #                 pre_start, pre_end = start, end
 # #                 lenght = end - start + 1
 # #         return s[pre_start:pre_end+1] if lenght < inf else ''
-        left = 0
-        ans_left = -1
-        ans_right = len(s)
-        dict = Counter()
-        d = Counter(t)
-        less = len(d)
-        for right, c in enumerate(s):
-            dict[c] += 1
-            if dict[c] == d[c]:
-                less -= 1
-                
-            while less == 0:
-                ## 存
-                if right - left < ans_right - ans_left:
-                    ans_left, ans_right = left, right
-                
-                ## 出
-                x = s[left]
-                if dict[x] == d[x]:
-                    less += 1
-                dict[x] -= 1
-                left += 1
-        return s[ans_left:ans_right+1] if ans_left != -1 else ''
-            
+        # left = 0
+        # ans_left = -1
+        # ans_right = len(s)
+        # dict = Counter()
+        # d = Counter(t)
+        # less = len(d)
+        # for right, c in enumerate(s):
+        #     dict[c] += 1
+        #     if dict[c] == d[c]:
+        #         less -= 1
+
+        #     while less == 0:
+        #         # 存
+        #         if right - left < ans_right - ans_left:
+        #             ans_left, ans_right = left, right
+
+        #         # 出
+        #         x = s[left]
+        #         if dict[x] == d[x]:
+        #             less += 1
+        #         dict[x] -= 1
+        #         left += 1
+        # return s[ans_left:ans_right+1] if ans_left != -1 else ''
+
 #         return s[left + 1, right]
 # class Solution:
 #     def minWindow(self, s: str, t: str) -> str:
@@ -87,8 +121,6 @@ class Solution:
 #                 cnt_s[x] -= 1  # 左端点字母移出子串
 #                 left += 1  # 移动子串左端点
 #         return "" if ans_left < 0 else s[ans_left: ans_right + 1]
-
-
 
 
 s = Solution()

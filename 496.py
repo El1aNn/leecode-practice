@@ -10,68 +10,80 @@ from typing import List, Dict
 #
 # 返回一个长度为 nums1.length 的数组 ans 作为答案，满足 ans[i] 是如上所述的 下一个更大元素 。
 class Solution:
+    #     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+    #         stack = nums2.copy()
+    #         temp = []
+    #         ans = []
+    #         Max = -1
+    #         for i in range(len(nums1)):
+    #             while (len(ans) != i + 1):
+    #                 a = stack.pop()
+    #                 Max = max(Max, a)
+    #                 temp.append(a)
+    #                 if a == nums1[i] and Max > nums1[i]:
+    #                     while len(ans) != i + 1:
+    #                         b = temp.pop()
+    #                         if b > nums1[i]:
+    #                             ans.append(b)
+    #                             temp = []
+    #                             stack = nums2.copy()
+    #                             Max = -1
+    #                 elif Max == nums1[i]:
+    #                     ans.append(-1)
+    #                     temp = []
+    #                     stack = nums2.copy()
+    #                     Max = -1
+
+    #         return ans
+
+    #     def nextGreaterElement1(self, nums1: List[int], nums2: List[int]) -> List[int]:
+    #         m = defaultdict(lambda: -1)
+    #         stack = []
+    #         for num in reversed(nums2):
+    #             while stack and stack[-1] < num:
+    #                 stack.pop()
+    #             if stack:
+    #                 m[num] = stack[-1]
+    #             stack.append(num)
+    #         return [m[num] for num in nums1]
+
+    # class Solution1:
+    #     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+    #         d = {}
+    #         self.nge(nums2, d)
+    #         n = len(nums1)
+    #         result = [0] * n
+    #         for i in range(n):
+    #             result[i] = d[nums1[i]]
+    #         return result
+
+    #     def nge(self, nums: List[int], d: Dict[int, int]) -> List[int]:
+    #         n = len(nums)
+    #         stack = []
+    #         for i in range(n - 1, -1, -1):
+    #             while stack and nums[i] >= stack[-1]:
+    #                 stack.pop()
+    #             if not stack:
+    #                 d[nums[i]] = -1
+    #             else:
+    #                 d[nums[i]] = stack[-1]
+    #             stack.append(nums[i])
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        stack = nums2.copy()
-        temp = []
-        ans = []
-        Max = -1
-        for i in range(len(nums1)):
-            while (len(ans) != i + 1):
-                a = stack.pop()
-                Max = max(Max, a)
-                temp.append(a)
-                if a == nums1[i] and Max > nums1[i]:
-                    while len(ans) != i + 1:
-                        b = temp.pop()
-                        if b > nums1[i]:
-                            ans.append(b)
-                            temp = []
-                            stack = nums2.copy()
-                            Max = -1
-                elif Max == nums1[i]:
-                    ans.append(-1)
-                    temp = []
-                    stack = nums2.copy()
-                    Max = -1
-
-        return ans
-
-    def nextGreaterElement1(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        m = defaultdict(lambda: -1)
-        stack = []
-        for num in reversed(nums2):
-            while stack and stack[-1] < num:
-                stack.pop()
-            if stack:
-                m[num] = stack[-1]
-            stack.append(num)
-        return [m[num] for num in nums1]
-
-
-class Solution1:
-    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        d = {}
-        self.nge(nums2, d)
         n = len(nums1)
-        result = [0] * n
-        for i in range(n):
-            result[i] = d[nums1[i]]
-        return result
-
-    def nge(self, nums: List[int], d: Dict[int, int]) -> List[int]:
-        n = len(nums)
+        m = len(nums2)
+        ans = [-1] * n
         stack = []
-        for i in range(n - 1, -1, -1):
-            while stack and nums[i] >= stack[-1]:
-                stack.pop()
-            if not stack:
-                d[nums[i]] = -1
-            else:
-                d[nums[i]] = stack[-1]
-            stack.append(nums[i])
+        d = {}
+        for i, num in enumerate(nums1):
+            d[num] = i
+        for i, num in enumerate(nums2):
+            while stack and num > stack[-1]:
+                top = stack.pop()
+                if top in d:
+                    ans[d[top]] = num
+            stack.append(num)
+        return ans
 
 
 s = Solution()
 print(s.nextGreaterElement([4, 1, 2], [1, 3, 4, 2]))
-
-

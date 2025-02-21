@@ -12,22 +12,22 @@ class TreeNode:
 
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        ans = 0
+        # ans = 0
 
-        def dfs(node, n):
-            nonlocal ans
-            if node is None:
-                return n
-            l = dfs(node.left, n + 1)
-            r = dfs(node.right, n + 1)
-            ans = max(ans, max(l, r))
-            return max(l, r)
+        # def dfs(node, n):
+        #     nonlocal ans
+        #     if node is None:
+        #         return n
+        #     l = dfs(node.left, n + 1)
+        #     r = dfs(node.right, n + 1)
+        #     ans = max(ans, max(l, r))
+        #     return max(l, r)
 
-        if root is None:
-            return 0
+        # if root is None:
+        #     return 0
 
-        dfs(root, 0)
-        return ans
+        # dfs(root, 0)
+        # return ans
 
 
 root = TreeNode(1)

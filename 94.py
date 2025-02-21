@@ -1,13 +1,13 @@
 # 给定一个二叉树的根节点 root ，返回 它的 中序 遍历 。
 # Definition for a binary tree node.
+from typing import Optional, List
+
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
-
-
-from typing import Optional, List
 
 
 # class Solution:
@@ -44,21 +44,30 @@ class TreeNode:
 
 
 def preorderTraversal(root):
-    if not root:
-        return []
+    # if not root:
+    #     return []
 
+    # result = []
+    # stack = [root]
+
+    # while stack:
+    #     node = stack.pop()
+    #     result.append(node.val)
+
+    #     if node.right:
+    #         stack.append(node.right)
+    #     if node.left:
+    #         stack.append(node.left)
     result = []
-    stack = [root]
 
-    while stack:
-        node = stack.pop()
-        result.append(node.val)
-
-        if node.right:
-            stack.append(node.right)
-        if node.left:
-            stack.append(node.left)
-
+    def dfs(root):
+        nonlocal result
+        if not root:
+            return
+        dfs(root.left)
+        result.append(root.val)
+        dfs(root.right)
+    dfs(root)
     return result
 
 

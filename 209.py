@@ -9,6 +9,17 @@ from typing import List
 
 class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        left = 0
+        n = len(nums)
+        ans = inf
+        sums = 0
+        for right in range(n):
+            sum += nums[right]
+            while sums >= target:
+                ans = min(ans ,right - left + 1)
+                sums -= nums[left]
+                left += 1
+        return ans if ans != inf else 0
         # ans = 1000000000
         # count = 0
         # n = len(nums)
@@ -39,17 +50,17 @@ class Solution:
         #         if sum < target and i + 1 == n:
         #             break
         # return ans * count
-        left = 0
-        n = len(nums)
-        ans = inf
-        sums = 0
-        for right in range(n):
-            sums += nums[right]
-            while sums >= target:
-                ans = min(ans, right - left + 1)
-                sums -= nums[left]
-                left += 1
-        return ans if ans != inf else 0
+        # left = 0
+        # n = len(nums)
+        # ans = inf
+        # sums = 0
+        # for right in range(n):
+        #     sums += nums[right]
+        #     while sums >= target:
+        #         ans = min(ans, right - left + 1)
+        #         sums -= nums[left]
+        #         left += 1
+        # return ans if ans != inf else 0
 
 
 s = Solution()

@@ -4,23 +4,32 @@ from typing import List
 
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        s = 0
-        b = len(nums) - 1
-        while s <= b:
-            if target == nums[0]:
-                return 0
-            elif target == nums[b]:
-                return b
+        # s = 0
+        # b = len(nums) - 1
+        # while s <= b:
+        #     if target == nums[0]:
+        #         return 0
+        #     elif target == nums[b]:
+        #         return b
+        #     else:
+        #         m = (s + b) // 2
+        #         if nums[m] == target:
+        #             return m
+        #         elif nums[m] < target:
+        #             s = m + 1
+        #         else:
+        #             b = m - 1
+        # return -1
+
+        # s = Solution()
+        # print(s.search([12], 12))
+        left, right = 0, len(nums) - 1
+        while left <= right:
+            mid = (left + right) // 2
+            if target == nums[mid]:
+                return mid
+            elif target < nums[mid]:
+                right = mid - 1
             else:
-                m = (s + b) // 2
-                if nums[m] == target:
-                    return m
-                elif nums[m] < target:
-                    s = m + 1
-                else:
-                    b = m - 1
+                left = mid + 1
         return -1
-
-
-s = Solution()
-print(s.search([12], 12))

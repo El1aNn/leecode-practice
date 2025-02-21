@@ -8,25 +8,18 @@ from typing import List
 
 class Solution:
     def maxArea(self, height: List[int]) -> int:
-        i = 0
-        j = len(height) - 1
-        maxArea = (j - i) * min(height[i], height[j])
-        while i < j:
-            if height[i] <= height[j]:
-                temp = height[i]
-                i += 1
-                while height[i] < temp:
-                    i += 1
+        left = 0
+        right = len(height) - 1
+        maxArea = (right - left) * min(height[left], height[right])
+        while left < right:
+            if height[left] < height[right]:
+                left += 1
             else:
-                temp = height[j]
-                j -= 1
-                while height[j] < temp:
-                    j -= 1
-            m = (j - i) * min(height[i], height[j])
-            maxArea = max(maxArea, m)
-
+                right -= 1
+            maxArea = max(maxArea, (right - left) *
+                          min(height[left], height[right]))
         return maxArea
 
 
 s = Solution()
-print(s.maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7]))
+print(s.maxArea([1, 1]))  # 49

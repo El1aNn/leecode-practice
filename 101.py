@@ -13,7 +13,8 @@ class TreeNode:
 class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         def dfs(l, r):
-            if l is None or r is None: return l is r
+            if l is None or r is None:
+                return l is r
             return l.val == r.val and dfs(l.left, r.right) and dfs(l.right, r.left)
 
         return dfs(root.left, root.right)
